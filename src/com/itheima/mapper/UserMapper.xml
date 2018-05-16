@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace表示命名空间 -->
+<mapper namespace="com.itheima.mapper.UserMapper">
+    <resultMap id="rm" type="com.itheima.po.User">
+		<id column="t_id" property="id"></id>
+		<result column="t_name" property="name"></result>
+		<result column="t_age" property="age"></result>
+
+	</resultMap>
+	
+	<!--根据客户名模糊查询客户信息列表-->
+	<select id="findUserAll" resultMap="rm">
+	   select * from t_user
+	</select>
+	
+
+</mapper>
