@@ -13,11 +13,12 @@
 </head>
 <body>
    <table>
-       <c:forEach items="${users}" var="cc">
+       <c:forEach items="${customer}" var="cc">
         <tr>
             <td>${cc.id}</td>
-            <td>${cc.name}</td>
-            <td>${cc.age}</td>
+            <td>${cc.username}</td>
+            <td>${cc.jobs}</td>
+            <td>${cc.phone}</td>
         </tr>
        </c:forEach>
 

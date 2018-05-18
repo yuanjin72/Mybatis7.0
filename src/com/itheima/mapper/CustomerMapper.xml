@@ -13,6 +13,17 @@
 	<select id="findCustomerByName" parameterType="String"
 	    resultType="com.itheima.po.Customer">
 	   select * from t_customer where username like '%${value}%'
+	</select>
+    <!--根据客户姓名和工作-->
+	<select id="findCustomerByNameAndJobs" parameterType="com.itheima.po.Customer"
+			resultType="com.itheima.po.Customer">
+		select * from t_customer where 1=1
+		<if test="username !=null and username=''">
+			and username like '%${username}%'
+		</if>
+		<if test="jobs !=null and jobs !=''" >
+			and jobs like '%${jobs}%'
+		</if>
 
 	</select>
 	

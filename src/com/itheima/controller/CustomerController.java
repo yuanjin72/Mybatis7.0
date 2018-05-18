@@ -53,6 +53,14 @@ public class CustomerController {
         List<Customer> customers =  customerDao.findCustomerByName(username);
         model.addAttribute("customer",customers);
         return "ok.jsp";
+    }
+
+    @RequestMapping(value = "/findCustomerByNameAndJobs")
+    public String findCustomerByName(Model model,Customer customer)throws Exception{
+        CustomerDao customerDao =new CustomerDao();
+        List<Customer> customers =  customerDao.findCustomerByNameAndJobs(customer);
+        model.addAttribute("customer",customers);
+        return "ok.jsp";
 
     }
 

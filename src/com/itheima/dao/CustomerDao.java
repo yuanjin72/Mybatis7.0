@@ -40,6 +40,19 @@ public class CustomerDao {
 		return customers;
 	}
 
+	public List<Customer> findCustomerByNameAndJobs(Customer customer) throws Exception {
+		SqlSession sqlSession = MybatisUtils.getSession();
+		// 4、SqlSession执行映射文件中定义的SQL，并返回映射结果
+		List<Customer> customers = sqlSession.selectList("com.itheima.mapper.CustomerMapper.findCustomerByNameAndJobs", customer);
+		// 打印输出结果
+		for(Customer c:customers){
+			System.out.println(c);
+		}
+		// 5、关闭SqlSession
+		sqlSession.close();
+		return customers;
+	}
+
 	public void addCustomer(Customer customer) throws Exception {
 		SqlSession sqlSession = MybatisUtils.getSession();
 		// 4、SqlSession执行映射文件中定义的SQL，并返回映射结果

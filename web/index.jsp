@@ -38,8 +38,14 @@
           username: <input type="text" name="username">
                     <input type="submit" value="查询">
     </form>
-     <form action="/findUserAll">
+    <%-- <form action="/findUserAll">
           user: <input type="text" name="name">
+         <input type="submit" value="查询">
+     </form>--%>
+
+     <form action="/findCustomerByNameAndJobs">
+         根据姓名查询: <input type="text" name="name"><br/>
+         根据工作查询: <input type="text" name="jobs"><br/>
          <input type="submit" value="查询">
      </form>
   </body>
