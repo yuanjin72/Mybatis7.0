@@ -12,7 +12,14 @@
     <title>Title</title>
 </head>
 <body>
-   <table>
+   <table border="1px">
+       <tr>
+           <td>序号</td>
+           <td>姓名</td>
+           <td>工作</td>
+           <td>电话</td>
+       </tr>
+
        <c:forEach items="${customer}" var="cc">
         <tr>
             <td>${cc.id}</td>
@@ -23,6 +30,6 @@
        </c:forEach>
 
    </table>
-
+    <a href="index.jsp">返回</a>
 </body>
 </html>
