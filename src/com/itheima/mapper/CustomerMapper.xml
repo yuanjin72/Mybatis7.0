@@ -6,6 +6,15 @@
     <!--根据客户编号获取客户信息 -->
 	<select id="findCustomerById" parameterType="Integer"
 		resultType="com.itheima.po.Customer">
+		select * from t_customer where id in
+		<foreach item="id" index="index" collection="list" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</select>
+
+	<!--通过ID批量查询客户-->
+	<select id="findCustomerByIds" parameterType="List"
+			resultType="com.itheima.po.Customer">
 		select * from t_customer where id = #{sid}
 	</select>
 
@@ -14,18 +23,31 @@
 	    resultType="com.itheima.po.Customer">
 	   select * from t_customer where username like '%${value}%'
 	</select>
-    <!--根据客户姓名和工作-->
-	<select id="findCustomerByNameAndJobs" parameterType="com.itheima.po.Customer"
+    <!--通过筛选查询信息-->
+	<select id="findCustomerByNameOrJobs" parameterType="com.itheima.po.Customer"
 			resultType="com.itheima.po.Customer">
-		select * from t_customer where 1=1
-		<if test="username !=null and username=''">
-			and username like '%${username}%'
-		</if>
-		<if test="jobs !=null and jobs !=''" >
-			and jobs like '%${jobs}%'
-		</if>
-
+		select * from t_customer
+		<where>
+			<choose>
+				<when test="username !=null and username !=''">
+					and username like '%${username}%'
+				</when>
+				<when test="jobs !=null and jobs !=''">
+					and jobs like '%${jobs}%'
+				</when>
+				<otherwise>
+					and phone like '%${phone}%'
+				</otherwise>
+			</choose>
+		</where>
 	</select>
+
+	<!--查询所有-->
+	<select id="findCustomerByAll" parameterType="String"
+			resultType="com.itheima.po.Customer">
+		    select * from t_customer
+	</select>
+
 	
 	<!-- 添加客户信息 -->
 	<insert id="addCustomer" parameterType="com.itheima.po.Customer" keyProperty="id" useGeneratedKeys="true" >
@@ -35,11 +57,23 @@
 	
 	<!-- 更新客户信息 -->
 	<update id="updateCustomer" parameterType="com.itheima.po.Customer">
-	    update t_customer set
-	    username=#{username},jobs=#{jobs},phone=#{phone}
-	    where id=#{id}
+		update t_customer
+		<set>
+			<if test="username !=null and username !=''">
+				username=#{username},
+			</if>
+			<if test="jobs !=null and jobs !=''">
+				jobs=#{jobs},
+			</if>
+			<if test="phone !=null and phone !=''">
+				phone=#{phone},
+			</if>
+		</set>
+		where id=#{id}
 	</update>
-	
+
+
+
 	<!-- 删除客户信息 -->
 	<delete id="deleteCustomer" parameterType="Integer">
 	    delete from t_customer where id=#{id}

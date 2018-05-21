@@ -8,6 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import com.itheima.po.Customer;
+import org.springframework.ui.Model;
+
 /**
  * 入门程序测试类
  */
@@ -26,12 +28,12 @@ public class CustomerDao {
 		sqlSession.close();
 		return customer;
 	}
-
-	public List<Customer> findCustomerByName(String username) throws Exception {
+	/*通过筛选查询匹配的信息*/
+	public List<Customer> findCustomerByNameOrJobs(Customer customer) throws Exception {
 		SqlSession sqlSession = MybatisUtils.getSession();
 		// 4、SqlSession执行映射文件中定义的SQL，并返回映射结果
-		List<Customer> customers = sqlSession.selectList("com.itheima.mapper.CustomerMapper.findCustomerByName", username);
-		// 打印输出结果
+		List<Customer> customers = sqlSession.selectList("com.itheima.mapper.CustomerMapper.findCustomerByNameOrJobs", customer);
+		//		// 打印输出结果
 		for(Customer c:customers){
 			System.out.println(c);
 		}
@@ -40,10 +42,11 @@ public class CustomerDao {
 		return customers;
 	}
 
-	public List<Customer> findCustomerByNameAndJobs(Customer customer) throws Exception {
+
+	public List<Customer> findCustomerByAll(Customer customer) throws Exception {
 		SqlSession sqlSession = MybatisUtils.getSession();
 		// 4、SqlSession执行映射文件中定义的SQL，并返回映射结果
-		List<Customer> customers = sqlSession.selectList("com.itheima.mapper.CustomerMapper.findCustomerByNameAndJobs", customer);
+		List<Customer> customers = sqlSession.selectList("com.itheima.mapper.CustomerMapper.findCustomerByAll", customer);
 		// 打印输出结果
 		for(Customer c:customers){
 			System.out.println(c);
